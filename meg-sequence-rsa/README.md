@@ -24,7 +24,7 @@ The simulated experiment follows the structure of the real one. On each trial a 
 
 Both sequences start with the same finger and differ from the second press on. Three questions follow:
 
-1. **Sequence specificity.** Is the upcoming sequence represented during preparation, before the first press or tone?
+1. **Sequence specificity.** Is the upcoming sequence represented during preparation, before the first press or tone? Since sequences start with the same finger/tone, sequence specificity during preparation must reflect a sequence-specific code and not just preparation of the first item.
 2. **Condition specificity.** How different is the activity of the three conditions?
 3. **Generalization.** Do the conditions share one code for each sequence?
 
@@ -103,29 +103,31 @@ All clusters are significant at α = 0.05 (cluster level, 1000 permutations). Ti
 
 **A second run** of the whole pipeline, with a different noise draw (Octave instead of MATLAB, 500 permutations), finds the same effects, with two differences at the edge of detection: there, generalization with PassiveTones is significant throughout preparation, and there is no false-positive cluster.
 
-**What the simulation caught.** The first version of the condition metric averaged all four class pairs of two conditions. Two of those pairs also differ in sequence, so the metric carried half of the sequence distance: MotorSilent and MotorTones came out as different in theta, although nothing differed between them there. Restricting the metric to same-sequence pairs removed the spurious effect and kept the real ones.
-
-The simulation also shows why generalization is the more sensitive test for a weak condition. Let δ be the difference between the mean patterns of the two sequences within one condition, and Σ the noise covariance. Sequence specificity is the squared distance δᵀΣ⁻¹δ; generalization between two conditions equals δ₁ᵀΣ⁻¹δ₂, the product of their two sequence differences. In PassiveTones, the theta's sequence difference is about 0.4 of that in the motor conditions: squared, PassiveTones' sequence specificity falls to about 0.15 of the motor value, while generalization with a motor condition falls only to about 0.4 (in mid-preparation of the second run, window centers −1.9 to −0.9 s, 4–7.5 Hz: 0.38 from the distances, 0.39 from generalization). In mid-preparation, neither reaches significance in the run shown here; in the second run, generalization does.
 
 ## Results on the simulated data
 
 23 simulated participants; 5 cross-validation repetitions (the default in `run_decoding.m` is 50) and 1000 permutations per test.
 
+
 <p align="center"><img src="figures/rdm.png" width="750" alt="Model RDMs and mean crossnobis RDMs"></p>
 
 <sub>Top: two model RDMs, what the data would look like if only the sequence mattered (left) or only motor vs passive (right). Bottom: the mean crossnobis RDMs over the whole sensor array, 4–25 Hz. Before the first press or tone (left), motor vs passive dominates: the PassiveTones classes are far from the four motor classes, the two sequences differ less within each condition, and MotorSilent and MotorTones overlap for the same sequence. Afterwards (right), presses and tones dominate: MotorSilent, with presses but no tones, is furthest from PassiveTones, and MotorTones, with both, lies in between.</sub>
+
 
 <p align="center"><img src="figures/sequence_specificity.png" width="850" alt="Sequence specificity per condition and its differences between conditions"></p>
 
 <sub>Sequence specificity per condition (diagonal) and its differences between conditions (upper panels), whole array. Outlined: significant clusters, tested before the first press or tone only (left of the dashed line). In the motor conditions, sequence specificity is significant throughout preparation; in PassiveTones, only in the last windows, which contain the visual response to the cue offset. It is higher in each motor condition than in PassiveTones, and the same in the two motor conditions. After the first press or tone (not tested), the second press or tone adds sequence information, most in PassiveTones.</sub>
 
+
 <p align="center"><img src="figures/sequence_searchlight.png" width="850" alt="Sequence specificity per searchlight"></p>
 
 <sub>Sequence specificity per searchlight. Top: preparation, 4–8 Hz: a frontal maximum in the motor conditions (theta) and an occipital maximum in every condition (visual responses to the cue); marked: sensors where the significant cluster covers at least half of the plotted time-frequency bins. Bottom: windows that include the presses or tones, 10–16 Hz: the second finger over the right hand area, in the motor conditions.</sub>
 
+
 <p align="center"><img src="figures/condition_specificity.png" width="850" alt="Condition specificity over time and frequency"></p>
 
 <sub>Condition specificity, whole array. Before the first press or tone, both motor conditions differ from PassiveTones throughout preparation, in theta and mu (about 4–13 Hz) and in beta (about 16–24 Hz); MotorSilent and MotorTones differ only in one small cluster, a false positive (see the table above). After it (not tested), every pair differs at 4–8 Hz, where the responses to presses and tones are.</sub>
+
 
 <p align="center"><img src="figures/condition_searchlight.png" width="850" alt="Condition specificity per searchlight"></p>
 
